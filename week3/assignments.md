@@ -1,18 +1,6 @@
-A1
-Zero-shot vs Few-shot 비교
-실패 케이스 수집
-
-A2
-CoT 유무에 따른 정확도 비교
-
-A3
-ReAct 포맷을 코드로 파싱
-
-A4
-Guardrails 우회 질문 만들어보기
-
-A5
-JSON 파서 + fallback 처리
-
-A6
-Mini agent 구조 리팩터링
+## RAG study
+1. Chunk size 50 / 200 / 500 비교
+2. Hallucination 테스트
+3. "모르면 모른다" 만들기
+4. 검색 결과 1개 vs 5개 비교
+5. Web UI 붙이기
