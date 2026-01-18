@@ -13,15 +13,15 @@
 
 # Steps
 1. Agent 개념 & Loop
-- ReAct pattern, Agent state machine을 사용한 Agent loop 구현
+    - ReAct pattern, Agent state machine을 사용한 Agent loop 구현
 2. Tool System
-- Tool schema, Tool calling, JSON-based actions을 사용한 Search tool, RAG tool, Browser stub 구현
+    - Tool schema, Tool calling, JSON-based actions을 사용한 Search tool, RAG tool, Browser stub 구현
 3. Planner / Executor
-- High-level plan, Step decomposition, Retry & failure handling을 사용한 Planner, Executor 구현
+    - High-level plan, Step decomposition, Retry & failure handling을 사용한 Planner, Executor 구현
 4. Memory
-- Short-term memory, Long-term memory, Summarization memory를 사용한 Memory manager 구현
+    - Short-term memory, Long-term memory, Summarization memory를 사용한 Memory manager 구현
 5. Browser Agent
-- DOM as tree, Semantic extraction, Click / input / scroll abstraction을 사용한 Headless browser agent 구현
+    - DOM as tree, Semantic extraction, Click / input / scroll abstraction을 사용한 Headless browser agent 구현
 6. Product Architecture
-- API separation, Observability, Safety 검토
+    - API separation, Observability, Safety 검토
 7. Demo App 구현
