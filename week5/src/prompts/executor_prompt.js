@@ -10,6 +10,8 @@ ${tools.map(t => `- ${t.name}: ${t.description}`).join("\n")}
 
 Return JSON:
 
+If you find tools from given tools list, 
+
 {
   "thought": "...",
   "action": {
