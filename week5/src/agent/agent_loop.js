@@ -1,51 +1,30 @@
-import { client } from "../llm/client.js";
-import { agentSystemPrompt } from "../prompts/agent_prompts.js";
-import { ToolRouter } from "./tool_router.js";
+import { plan } from "./planner.js";
+import { executeStep } from "./executor.js";
 
-export async function runAgent({ goal, tools, maxSteps = 6 }) {
-  const state = [];
-  const router = new ToolRouter(tools);
+export async function runAgent(args) {
+  let goal = args.goal;
+  let tools = args.tools;
+  const steps = await plan(goal);
+  console.log("🗺 Plan:", steps);
 
-  const systemPrompt = agentSystemPrompt(tools);
+  const toolMap = new Map(tools.map(t => [t.name, t]));
 
-  state.push({ role: "system", content: systemPrompt });
-  state.push({ role: "user", content: `Goal: ${goal}` });
+  const results = [];
 
-  for (let i = 0; i < maxSteps; i++) {
-    const res = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: state,
-      response_format: { type: "json_object" }
-    });
+  for (const step of steps) {
+    console.log(`\n▶ Executing: ${step}`);
 
-    const msg = res.choices[0].message.content;
-    const parsed = JSON.parse(msg);
+    const res = await executeStep(step, tools, toolMap);
 
-    console.log(`\n🧠 Thought: ${parsed.thought}`);
-
-    const { name, args } = parsed.action;
-
-    if (name === "finish") {
-      console.log("\n✅ Final Answer:", args.answer);
-      return args.answer;
+    if (res.done) {
+      results.push(res.result);
+      continue;
     }
 
-    let observation;
-    try {
-      observation = await router.run(parsed.action);
-    } catch (e) {
-      observation = `Error: ${e.message}`;
-    }
-
-    console.log(`🔧 Action: ${name}`);
-    console.log(`👀 Observation: ${observation}`);
-
-    state.push({ role: "assistant", content: msg });
-    state.push({
-      role: "user",
-      content: `Observation: ${observation}`
-    });
+    console.log("👀 Observation:", res.observation);
+    results.push(res.observation);
   }
 
-  throw new Error("Agent did not finish in time.");
+  console.log("\n✅ Final Output:");
+  console.log(results.join("\n"));
 }

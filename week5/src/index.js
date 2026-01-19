@@ -6,7 +6,7 @@ import { searchStubTool } from "./tools/search_stub_tool.js";
 
 async function main() {
   await runAgent({
-    goal: "Search WebGPU and then say hello and calculate 3 * 4",
+    goal: "Search WebGPU, greet, and calculate 3 + 4",
     tools: [echoTool, mathTool, searchStubTool, multiplyTool]
   });
 }
