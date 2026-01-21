@@ -11,7 +11,6 @@ export async function executeStep(step, tools, toolMap) {
   });
 
   const parsed = JSON.parse(res.choices[0].message.content);
-  console.log(parsed)
 
   if (parsed.action.name === "finish") {
     return { done: true, result: parsed.action.args.result };
