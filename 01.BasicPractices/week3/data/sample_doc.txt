@@ -1,0 +1,4 @@
+WebGPU is a modern web API for accessing GPU capabilities.
+Chromium is an open-source browser engine.
+RAG combines retrieval and generation.
+Vector databases store embeddings.
